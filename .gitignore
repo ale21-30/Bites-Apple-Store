@@ -1,0 +1,110 @@
+Copilot said: ```name=.gitignore # ====================== # Root / Monorepo # ====================== # Ignore
+name=.gitignore
+# ======================
+# Root / Monorepo
+# ======================
+# Ignore environment files and secrets
+.env
+.env.*
+.env.local
+.env.*.local
+
+# keep explicit .gitkeep files
+!.gitkeep
+
+# ======================
+# Node / Frontend
+# ======================
+# Frontend folder (adjust name if different)
+BITES-FRONTEND/node_modules/
+BITES-FRONTEND/.parcel-cache/
+BITES-FRONTEND/.next/
+BITES-FRONTEND/.nuxt/
+BITES-FRONTEND/.vite/
+BITES-FRONTEND/dist/
+BITES-FRONTEND/build/
+BITES-FRONTEND/public/build/
+BITES-FRONTEND/.cache/
+
+# lockfiles (optional to ignore or keep)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ======================
+# PHP / Laravel / Backend
+# ======================
+# Composer dependencies
+BITES-BACKEND/vendor/
+
+# Node inside backend (if using frontend tooling in backend)
+BITES-BACKEND/node_modules/
+
+# Laravel specific
+BITES-BACKEND/.env
+BITES-BACKEND/.env.*
+BITES-BACKEND/.phpunit.result.cache
+BITES-BACKEND/storage/*.key
+BITES-BACKEND/storage/*.json
+BITES-BACKEND/public/storage
+BITES-BACKEND/bootstrap/cache/*.php
+
+# Keep composer.json & composer.lock committed (do NOT ignore by default)
+# composer.lock
+
+# ======================
+# Logs / Databases / Temp
+# ======================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.sql
+*.sqlite
+*.sqlite3
+debug.log
+
+# caches / build artifacts
+/.cache
+/.sass-cache
+/.parcel-cache
+/.next/cache
+/.nuxt/cache
+
+# ======================
+# IDEs / Editors / OS
+# ======================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# JetBrains
+*.iml
+
+# ======================
+# Docker / Vagrant / Misc
+# ======================
+.vagrant/
+docker-compose.override.yml
+.env.docker
+
+# history / local tool folders
+.history/
+
+# ======================
+# Safety / Misc
+# ======================
+# Avoid accidentally committing built binary extensions or composer phar
+*.phar
+*.exe
+
+# End of .gitignore
