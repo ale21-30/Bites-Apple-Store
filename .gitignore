@@ -108,3 +108,9 @@ docker-compose.override.yml
 *.exe
 
 # End of .gitignore
+
+# Firebase
+firebase-key.json
+
+# General
+.DS_Store
