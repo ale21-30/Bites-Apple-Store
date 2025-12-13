@@ -16,10 +16,10 @@ public function up(): void
         $table->string('name');
         $table->text('description');
         $table->decimal('price', 8, 2);
-        $table->string('image_url'); // Firebase image URL
-        $table->foreignId('category_id')
-              ->constrained()
-              ->onDelete('cascade');
+        $table->enum('type', ['equipo', 'accesorio']);
+        $table->string('color')->nullable();
+        $table->string('storage')->nullable(); // solo para equipos
+        $table->string('image_url');
         $table->timestamps();
     });
 }

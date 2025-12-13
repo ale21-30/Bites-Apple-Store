@@ -13,18 +13,22 @@ class ProductController extends Controller
         return Product::with('category')->get();
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'image_url' => 'required|string',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric|min:0',
+        'type' => 'required|in:equipo,accesorio',
+        'color' => 'nullable|string|max:50',
+        'storage' => 'nullable|string|max:50',
+        'image_url' => 'required|string',
+    ]);
 
-        return Product::create($request->all());
-    }
+    $product = Product::create($request->all());
+
+    return response()->json($product, 201);
+}
 
     public function show(Product $product)
     {
