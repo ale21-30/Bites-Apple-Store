@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,4 +71,18 @@ Route::middleware(['auth:sanctum', 'admin'])
 // =======================
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Categories
+|--------------------------------------------------------------------------
+*/
+
+// público
+Route::get('/categories', [CategoryController::class, 'index']);
+
+// solo admin
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/categories', [CategoryController::class, 'store']);
 });

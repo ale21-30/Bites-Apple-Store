@@ -8,42 +8,31 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    // GET /api/products
     public function index()
     {
-        return Product::with('category')->get();
+        return response()->json(
+            Product::with('category')->get(),
+            200
+        );
     }
 
-public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'required|string',
-        'price' => 'required|numeric|min:0',
-        'type' => 'required|in:equipo,accesorio',
-        'color' => 'nullable|string|max:50',
-        'storage' => 'nullable|string|max:50',
-        'image_url' => 'required|string',
-    ]);
-
-    $product = Product::create($request->all());
-
-    return response()->json($product, 201);
-}
-
-    public function show(Product $product)
+    // POST /api/products (admin)
+    public function store(Request $request)
     {
-        return $product->load('category');
-    }
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'description' => 'required|string',
+            'price'       => 'required|numeric',
+            'type'        => 'required|in:equipo,accesorio',
+            'color'       => 'nullable|string|max:255',
+            'storage'     => 'nullable|string|max:255',
+            'image_url'   => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
-    public function update(Request $request, Product $product)
-    {
-        $product->update($request->all());
-        return $product;
-    }
+        $product = Product::create($validated);
 
-    public function destroy(Product $product)
-    {
-        $product->delete();
-        return response()->json(null, 204);
+        return response()->json($product, 201);
     }
 }

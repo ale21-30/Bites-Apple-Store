@@ -3,24 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'type',
+        'color',
+        'storage',
+        'image_url',
+        'category_id',
+    ];
 
-protected $fillable = [
-    'name',
-    'description',
-    'price',
-    'type',
-    'color',
-    'storage',
-    'image_url',
-];
-
-    public function favorites()
+    public function category()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsTo(Category::class);
     }
 }
