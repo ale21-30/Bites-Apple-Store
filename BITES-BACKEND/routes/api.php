@@ -59,7 +59,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/products/{product}/comments', [CommentController::class, 'index']);
 
 // Usuario autenticado: crear comentario
-Route::middleware('auth:sanctum')->post('/comments', [CommentController::class, 'store']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/comments', [CommentController::class, 'store']);
+
+});
 
 // Solo admin: eliminar comentario
 Route::middleware(['auth:sanctum', 'admin'])

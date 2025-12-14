@@ -25,10 +25,10 @@ class CommentController extends Controller
             'comment' => 'required|string|max:200',
         ]);
 
-        $comment = Comment::create([
-            'user_id' => $request->user()->id,
-            'product_id' => $request->product_id,
-            'comment' => $request->comment,
+    $comment = Comment::create([
+        'user_id' => auth()->id(),
+        'product_id' => $request->product_id,
+        'comment' => $request->comment,
         ]);
 
         return response()->json($comment, 201);
