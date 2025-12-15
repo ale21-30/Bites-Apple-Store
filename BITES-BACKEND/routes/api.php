@@ -26,6 +26,7 @@ Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/products/{product}/comments', [CommentController::class, 'index']);
 
+
 /*
 |--------------------------------------------------------------------------
 | Protected (auth:sanctum)
@@ -48,4 +49,23 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // 🔹 Comentarios
     Route::post('/products/{product}/comments', [CommentController::class, 'store']);
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin (auth:sanctum + isadmin)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:sanctum', \App\Http\Middleware\IsAdmin::class])->group(function () {
+
+    // CRUD Productos (ADMIN)
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::put('/products/{product}', [ProductController::class, 'update']);
+    Route::delete('/products/{product}', [ProductController::class, 'destroy']);
+
+    // CRUD Categorías (opcional, pero recomendado)
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::put('/categories/{category}', [CategoryController::class, 'update']);
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 });

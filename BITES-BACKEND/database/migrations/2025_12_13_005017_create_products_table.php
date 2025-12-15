@@ -19,7 +19,8 @@ public function up(): void
         $table->enum('type', ['equipo', 'accesorio']);
         $table->string('color')->nullable();
         $table->string('storage')->nullable(); // solo para equipos
-        $table->string('image_url');
+        $table->string('image_url')->nullable();
+        $table->foreignId('category_id')->constrained()->onDelete('cascade');
         $table->timestamps();
     });
 }

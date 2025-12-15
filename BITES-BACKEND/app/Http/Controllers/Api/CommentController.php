@@ -18,18 +18,20 @@ class CommentController extends Controller
     }
 
     // Crear comentario (usuario autenticado)
-    public function store(Request $request)
+    public function store(Request $request, $product)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id',
             'comment' => 'required|string|max:200',
         ]);
 
-    $comment = Comment::create([
-        'user_id' => auth()->id(),
-        'product_id' => $request->product_id,
-        'comment' => $request->comment,
+        $comment = Comment::create([
+            'user_id' => auth()->id(),
+            'product_id' => $product,
+            'content' => $request->comment, // La columna en DB es 'content'
         ]);
+
+        // Cargar la relación del usuario para retornarla
+        $comment->load('user:id,name');
 
         return response()->json($comment, 201);
     }

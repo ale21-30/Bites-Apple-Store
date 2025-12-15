@@ -36,9 +36,9 @@ class FavoriteController extends Controller
     }
 
     // Eliminar de favoritos
-    public function destroy($id)
+    public function destroy($productId)
     {
-        Favorite::where('id', $id)
+        Favorite::where('product_id', $productId)
             ->where('user_id', auth()->id())
             ->delete();
 
