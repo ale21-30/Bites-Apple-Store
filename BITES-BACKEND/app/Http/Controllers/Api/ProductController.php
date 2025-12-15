@@ -17,6 +17,14 @@ class ProductController extends Controller
         );
     }
 
+public function show(Product $product)
+{
+    return response()->json(
+        $product->load('category')
+    );
+}
+
+
     // POST /api/products (admin)
     public function store(Request $request)
     {
